@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
@@ -30,10 +31,11 @@ public class WebViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getWindow().requestFeature(Window.FEATURE_PROGRESS);
+        getWindow().requestFeature(Window.FEATURE_PROGRESS);
         setContentView(R.layout.web_activity);
-        webView = (WebView) findViewById(R.id.webView);
+        getWindow().setFeatureInt( Window.FEATURE_PROGRESS, Window.PROGRESS_VISIBILITY_ON);
 
+        webView = (WebView) findViewById(R.id.webView);
         webView.clearCache(true);
         webView.clearHistory();
         webView.getSettings().setJavaScriptEnabled(true);
@@ -45,6 +47,15 @@ public class WebViewActivity extends AppCompatActivity {
             public void onPageFinished(final WebView view, String url) {
                 if (url.startsWith(VOTER_RESULT_URL))
                     webView.post(() -> webView.loadUrl(JAVASCRIPT_QUERY));
+            }
+        });
+
+        webView.setWebChromeClient(new WebChromeClient() {
+            public void onProgressChanged(WebView view, int progress) {
+                setTitle("Loading " + progress + "%");
+                setProgress(progress * 100);
+                if(progress == 100)
+                    setTitle(R.string.app_name);
             }
         });
         webView.loadUrl(VOTER_SEARCH_URL);
