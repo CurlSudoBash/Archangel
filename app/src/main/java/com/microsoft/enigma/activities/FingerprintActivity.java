@@ -51,10 +51,8 @@ public class FingerprintActivity extends AppCompatActivity {
         // or higher before executing any fingerprint-related code
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             //Get an instance of KeyguardManager and FingerprintManager//
-            keyguardManager =
-                    (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
-            fingerprintManager =
-                    (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
+            keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
+            fingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
 
             textView = (TextView) findViewById(R.id.textview);
 
@@ -99,8 +97,7 @@ public class FingerprintActivity extends AppCompatActivity {
         }
     }
 
-//Create the generateKey method that we’ll use to gain access to the Android keystore and generate the encryption key//
-
+    //Create the generateKey method that we’ll use to gain access to the Android keystore and generate the encryption key//
     private void generateKey() throws FingerprintException {
         try {
             // Obtain a reference to the Keystore using the standard Android keystore container identifier (“AndroidKeystore”)//
@@ -156,8 +153,7 @@ public class FingerprintActivity extends AppCompatActivity {
 
         try {
             keyStore.load(null);
-            SecretKey key = (SecretKey) keyStore.getKey(KEY_NAME,
-                    null);
+            SecretKey key = (SecretKey) keyStore.getKey(KEY_NAME, null);
             cipher.init(Cipher.ENCRYPT_MODE, key);
             //Return true if the cipher has been initialized successfully//
             return true;

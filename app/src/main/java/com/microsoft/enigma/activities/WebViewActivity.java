@@ -78,6 +78,7 @@ public class WebViewActivity extends AppCompatActivity {
                 Log.d(elem.attr("name"), elem.attr("value"));
             }
             UserModel.populateBySignUp(userDataMap);
+
         }
     }
 }
