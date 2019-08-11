@@ -76,10 +76,10 @@ public class ApiClient {
         });
     }
 
-    public static UserModel getVoter(String voterId) {
+    public static UserModel getVoter(String epicNumber) {
         UserModel user = null;
         try {
-            user = api.getVoter(voterId).execute().body();
+            user = api.getVoter(epicNumber).execute().body();
         } catch (IOException e) {
             e.printStackTrace();
         }
